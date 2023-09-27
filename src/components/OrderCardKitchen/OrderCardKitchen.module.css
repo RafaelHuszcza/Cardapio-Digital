@@ -1,0 +1,102 @@
+.card{
+display: flex;
+flex-direction: column;
+background: var(--background-color);
+border-radius: 8px;
+overflow: hidden;
+color: var(--text-color-primary);
+height: 16.25rem;
+width: 12rem;
+box-sizing: border-box;
+
+}
+.image{
+  width: 8.25rem;
+  height: 8.25rem;
+  border-radius: 50%;
+  margin-top: -2.125rem;
+  box-sizing: border-box;
+  
+}
+
+.cover {
+  width: 100%;
+  height: 2.125rem;
+
+  
+}
+.product{
+  width: 100%;
+  height: 14.125rem;
+  display: flex;
+  flex-direction: column;  
+  align-items: center;  
+  border-radius: 8px;
+  box-sizing: border-box;
+  background: var(--secondary-color);
+  
+}
+
+.textBox{
+  display: flex;
+  flex-direction: column;
+  padding: 0.1rem 1rem;
+  height: 4rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.textBox :nth-child(1){
+  text-align: center;
+  font-weight: bold;
+}
+.textBox :nth-child(2){
+  margin-top: 0.2rem;
+}
+
+
+
+.card footer{  
+  height: 3rem;
+  margin-bottom: 1rem;
+  padding: 0rem 2rem;
+  box-sizing: border-box;
+}
+
+.card footer button{
+  box-sizing: border-box;
+  cursor:pointer;
+  background: transparent;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 8px;
+  height: 3rem;
+  width: 7rem;
+  padding: 0 1rem;
+  font-weight: bold;
+  display: block;
+  text-decoration: none;
+  display: flex;
+  align-items: center ;
+  justify-content: center;
+  transition: color 0.1s backgroudn-color 0.1s ;
+}
+
+.card footer button:hover{
+  color: var(--text-color-primary);
+  background: var(--primary-color);
+}
+
+.icons{
+  display: flex;
+  box-sizing:initial;
+}
+.status{
+  position: absolute;
+  background-color:transparent;
+  width: 2.5rem;
+  height: 2.5rem;
+  z-index: 1;
+  cursor: pointer;
+}

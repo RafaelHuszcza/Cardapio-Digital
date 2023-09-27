@@ -1,0 +1,107 @@
+.login {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  flex: 1;
+  background-color: var(--secondary-color);
+  flex-direction: column;
+}
+.loginUser {
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-color);
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.loginForm {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  width: 25vw;
+}
+
+.loginForm label {
+  margin-bottom: 5px;
+  color: var(--primary-color);
+  font-size: 1rem;
+}
+
+.loginForm input {
+  border-radius: 5px;
+  border: 1px solid var(--primary-color);
+  height: 50px;
+  padding: 0px 10px;
+}
+
+.loginFormPasswordEye {
+  position:absolute;
+  font-size: 1.2rem;
+  top: 40px; 
+  right: 10px;
+  color: var(--primary-color);
+}
+
+
+
+.loginSubmitButton {
+  width: 100%;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 50px;
+  transition: color 200ms;
+  transition-property: background-color, color;
+  border: 0;
+  font-size: 16px;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: 2px solid ;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+
+}
+
+.loginSubmitButton:hover {
+  background-color: var(--primary-color-200);
+}
+
+
+
+.loginUserError {
+  margin-top: 10px;
+  color: red;
+}
+.loginForgotPassword {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+}
+.loginForgotPassword a {
+  font-size: 1rem;
+  color: var(--primary-color);
+  cursor: pointer;
+  text-decoration: underline;
+}
+.loginForgotPassword a:hover {
+  color: var(--primary-color-200);
+}
+
+@media (max-width: 768px) {
+  .loginUser {
+    width: 90vw;
+  }
+  .loginForm {
+    width: 80vw;
+  }
+}

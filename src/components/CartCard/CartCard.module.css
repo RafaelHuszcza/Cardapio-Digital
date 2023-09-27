@@ -1,0 +1,123 @@
+.cart{
+display: flex;
+flex-direction: column;
+background: var(--secondary-color);
+color: var(--text-color-primary);
+height: 6.625rem;
+width: 25vw;
+box-sizing: border-box;
+}
+
+  
+.product{
+  width: 21.5rem;
+  height: 3.3125rem;
+  display: flex;
+}
+.image{
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.productInfo{
+  width: 12rem;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  overflow: hidden; 
+
+  
+}
+.productInfo span:nth-of-type(1){
+  font-weight: bold;
+  overflow: hidden; 
+
+
+  
+}
+.productInfo span:nth-of-type(2){
+  color: var(--text-color-secondary);
+  
+
+}
+
+.quantity{
+  box-sizing: border-box;
+  background: var(--background-color);
+  color: var(--text-color-primary);
+  border: 2px solid var(--grey--100);
+  border-radius: 8px;
+  text-align: center;
+  height: 3rem;
+  width: 3rem;
+  
+
+}
+.quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.quantity:focus{
+  outline: none;
+  border-color: var(--primary-color) ;
+}
+
+.finalValue{
+  display: flex;
+  width: 5rem;
+  height: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.observationBox{
+  width: 22.5rem;
+  height: 3.3125rem;
+  display: flex;
+
+}
+.observation{
+  display: flex;
+  width: 17.5rem;
+  height: 3.3125rem;
+  display: flex;
+  border-radius: 8px;
+  background-color: var(--grey--200);
+  outline: none;
+  resize: none;
+  color: var(--text-color-primary);
+  padding: 0.5rem;
+}
+.observation::-webkit-scrollbar {
+  display: none;
+}
+
+.observation:focus{
+  outline: none;
+  border-color: var(--primary-color) ;
+}
+
+.delete {
+  width: 5rem;
+  height: 3.3125rem;
+  padding: 0rem calc((5rem - 3.3125rem)/2)
+}
+.deleteButton{
+  box-sizing: border-box;
+  border-radius: 8px;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--delete);
+  color: var(--delete);
+  font-size: 28px;
+  cursor: pointer;
+}
+.deleteButton:hover{
+  border: solid 2px var(--primary-color);
+  color:var(--primary-color);
+
+}

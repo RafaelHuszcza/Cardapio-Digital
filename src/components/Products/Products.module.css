@@ -1,0 +1,112 @@
+.containerProducts{
+  transition: width 0.9s;
+  overflow-y: auto;
+  width: 100%;
+  height:100vh; 
+}
+
+.products{
+  display:flex;
+  flex-wrap: wrap;
+  gap:1.5rem; 
+  background:var(--background-color);
+  width: 100%;
+  height:100%; 
+  padding: 2rem;
+
+}
+
+.containerProducts::-webkit-scrollbar{
+  display: none;
+
+}
+.cartOn{
+  width: 72vw;
+}
+
+.header{
+  width: 100%;
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 2rem;
+}
+.topHeader{
+  padding-top: 1rem;
+  display: flex;
+  width: 100%;
+  height: 10vh;
+  color: var(--text-color-primary);
+  justify-content: space-between;
+}
+
+.names{
+  display: flex;
+  align-items: center;
+}
+.names > p{
+  padding-top: 0.3rem;
+  margin: 1rem;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+.filters{
+  display: flex;
+  width: 100%;
+  height: 10vh;  
+  margin-bottom: 4vh;
+  border-bottom: 2px solid var(--grey--100);
+  align-items:flex-end;
+  padding-bottom: 1rem;
+  gap: 3rem;
+  font-weight: 600; 
+}
+
+.filterButton{
+  color: var(--text-color-primary);
+  cursor: pointer;  
+  transition: color 200ms;
+}
+.filterButton:hover{
+  color: var(--primary-color);
+
+}
+
+.filterButton.selected {
+  color: var(--primary-color);
+}
+.searchBar{
+  box-sizing: border-box;
+  width: 15rem;
+  height: 100%;
+  position: relative;
+  border: 2px solid var(--background-color);
+}
+.searchBarInput:Hover{
+  border: 2px solid var(--primary-color);
+
+}
+.searchBarInput{
+  border: 2px solid var(--background-color);
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  border: 2px solid var(--background-color);
+  padding-left: 2rem;
+  background-color: var(--grey--200);
+  color: var(--text-color-primary);
+}
+.searchBarInput:Hover{
+  border: 2px solid var(--primary-color);
+}
+
+.title{
+  width: 100;
+  height: 5vh;
+  display: flex;
+  font-size: 1rem;
+  color: var(--text-color-primary);
+
+}
