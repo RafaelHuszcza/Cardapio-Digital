@@ -23,11 +23,12 @@ export const AuthProvider = ({ children }) => {
         }, 
         token: user.token
       });
+    localStorage.setItem("@taNaMesa:token", user.token);
+    delete user.token;
     localStorage.setItem(
       "@taNaMesa:user",
-      JSON.stringify(user)
+      JSON.stringify({...user, userType: user.type})
     );
-    localStorage.setItem("@taNaMesa:token", user.token);
   };
 
   const signOut = () => {
@@ -38,12 +39,10 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const isLogged = () => {
-    if (data.token === "") {
-      return false;
-    }
-    return true
-  };
+  function isLogged () { 
+    return data.token !== "" // TODO: check if token is valid
+  }
+  
 
   const generateToken = (token=data.token) => {
     const config = {
