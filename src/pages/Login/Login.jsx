@@ -9,9 +9,7 @@ import errorHandle from '../../helpers/errorHandle'
 import {EyeInvisibleOutlined , EyeOutlined} from "@ant-design/icons"
 import styles from "./Login.module.css"
 
-
-
-const login = async ({ login, password }) => {
+async function login({ login, password }){
   try{
       if (login.length === 0) return { error: 'Insira uma mesa ou login cozinha.' };
       else if (password.length === 0) return { error: 'Insira uma senha.' };

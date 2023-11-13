@@ -9,9 +9,6 @@ import { LogoutOutlined, ShoppingCartOutlined, ShopOutlined } from "@ant-design/
 export function Navbar({ Component1:Component1, Component2:Component2,...props}) {
 const { signOut } = useAuth()
 const navigate= useNavigate();
-
-
-
   return(
     <main className={styles.container}>
     <div className={styles.navbar}>
