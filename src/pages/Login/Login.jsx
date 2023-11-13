@@ -2,38 +2,28 @@ import { useState, useRef} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import { useToast } from '../../context/toastContext';
-import {EyeInvisibleOutlined , EyeOutlined} from "@ant-design/icons"
-
+import api from '../../utils/api';
 import {Header} from '../../components/Header/Header';
 import {Footer} from '../../components/Footer/Footer';
 import errorHandle from '../../helpers/errorHandle'
+import {EyeInvisibleOutlined , EyeOutlined} from "@ant-design/icons"
 import styles from "./Login.module.css"
 
 
 
 const login = async ({ login, password }) => {
   try{
-      const regex = /^(?=.*[@!#$%^&*()/\\])[@!#$%^&*()/\\a-zA-Z0-9]{6,20}$/
-      const content = { password: "123456789@" }
-
       if (login.length === 0) return { error: 'Insira uma mesa ou login cozinha.' };
       else if (password.length === 0) return { error: 'Insira uma senha.' };
       else if (password.length > 20 || password.length < 6) return {error: 'A senha deve conter entre 6 a 20 caracteres!'}
-      else if(!regex.test(password))return {error: 'A senha deve conter caracteres especiais!'} 
-      else if(password !== content.password )return {error: 'Senha Incorreta'}
-      let data = {}
-      if (login == "Cozinha1"){
-
-        data = { user:{id: "1222", name: login, usertype: "kitchen"}, token: '1234567890' }
-      }
-      else{
-        data = { user:{id: "1", name: login, usertype: "client"}, token: '1234567890' }
-      }
-      return { user: data.user, token: data.token, error: null }; 
+      
+      const data = await api.post('/login', { username: login, password })
+      if (data.status !== 200) return { error: data.data.message };
+      return { user: data.data.user, error: null };
 
     } catch (e) {
         const error = errorHandle(e);
-        return { user: null, token: null, error: error[0] };
+        return { user: null, error: error[0] };
     }
 }
 
@@ -53,15 +43,15 @@ export const Login = () => {
         return total       
       },{})
 
-    const { user, token, error } = await login(inputValues);
+    const { user, error } = await login(inputValues);
     if (error) {
       setError(error);
       addToast({ type: "error", title: "Erro ao logar", message:"Cheque as credenciais" })
     }
     
-    if (token && user) {
+    if (user) {
         addToast({ type: "success", title: "Login", message:"Realizado com sucesso" })
-        signIn(user, token)       
+        signIn(user)       
         navigate("/home");
     }
   }

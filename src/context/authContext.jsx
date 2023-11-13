@@ -8,18 +8,26 @@ export const AuthProvider = ({ children }) => {
     const user = localStorage.getItem("@taNaMesa:user");
     if (token && user) return { user: JSON.parse(user), token };
     return {
-      user: { id: "", name: ""},
+      user: { id: "", name: "", userType: ""},
       token: "",
     };
   });
 
-  const signIn = async (user, token) => {
-    setData({user, token});
+  const signIn = async (user) => {
+    setData(
+      {
+        user: {
+          id: user.id,
+          name: user.name,
+          userType: user.type,
+        }, 
+        token: user.token
+      });
     localStorage.setItem(
       "@taNaMesa:user",
       JSON.stringify(user)
     );
-    localStorage.setItem("@taNaMesa:token", token);
+    localStorage.setItem("@taNaMesa:token", user.token);
   };
 
   const signOut = () => {
