@@ -3,15 +3,22 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const [data, setData] = useState(() => {
-    const token = localStorage.getItem("@taNaMesa:token");
-    const user = localStorage.getItem("@taNaMesa:user");
-    if (token && user) return { user: JSON.parse(user), token };
-    return {
-      user: { id: "", name: "", userType: ""},
-      token: "",
-    };
-  });
+  const token = localStorage.getItem("@taNaMesa:token");
+  const user = JSON.parse(localStorage.getItem("@taNaMesa:user"));
+  let dataDefault = {
+    user: { id: "", name: "", userType: ""},
+    token: "",
+  }
+  if (token && user) {
+    dataDefault = {
+      user: {
+        id: user.id,
+        name: user.name,
+        userType: user.type,
+      }, 
+      token };
+  }
+  const [data, setData] = useState(dataDefault);
 
   const signIn = async (user) => {
     setData(
@@ -42,7 +49,6 @@ export const AuthProvider = ({ children }) => {
   function isLogged () { 
     return data.token !== "" // TODO: check if token is valid
   }
-  
 
   const generateToken = (token=data.token) => {
     const config = {
