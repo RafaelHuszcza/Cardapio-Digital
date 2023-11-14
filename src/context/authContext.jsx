@@ -4,28 +4,28 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [data, setData] = useState(() => {
-    const token = localStorage.getItem("@taNaMesa:token");
-    const user = localStorage.getItem("@taNaMesa:user");
+    const token = localStorage.getItem("@CDigital:token");
+    const user = localStorage.getItem("@CDigital:user");
     if (token && user) return { user: JSON.parse(user), token };
     return {
-      user: { id: "", name: ""},
+      user: { id: "", name: "", userType: "" },
       token: "",
     };
   });
 
   const signIn = async (user, token) => {
-    setData({user, token});
+    setData({ user, token });
     localStorage.setItem(
-      "@taNaMesa:user",
+      "@CDigital:user",
       JSON.stringify(user)
     );
-    localStorage.setItem("@taNaMesa:token", token);
+    localStorage.setItem("@CDigital:token", token);
   };
 
   const signOut = () => {
     localStorage.clear();
     setData({
-      user: { id: "", name: "", userType: ""},
+      user: { id: "", name: "", userType: "" },
       token: "",
     });
   };
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     return true
   };
 
-  const generateToken = (token=data.token) => {
+  const generateToken = (token = data.token) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };

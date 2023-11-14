@@ -8,8 +8,8 @@ export const GlobalRoutes = () => {
 
   return (
 
-    isLogged() ? data.user.usertype == "client" ? <Outlet/>: <Navigate to="/login" /> : <Navigate to="/login" />
-      
+    isLogged() ? data.user.userType == "client" ? <Outlet /> : <Navigate to="/login" /> : <Navigate to="/login" />
+
 
   )
 }
