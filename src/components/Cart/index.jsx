@@ -15,23 +15,13 @@ export function Cart() {
   const { data } = useAuth();
 
   const finishOrder = async () => {
-    let total = 0
-    //TODO
     let order = {
       "clientId": data.user.id,
-      "id": 1,
-      "products": [
-      ],
+      "products": cart.map(item => { return { productId: item.id, quantity: item.quantity, price: item.price, observation: item.observation ?? null } }),
     }
-    {
-      cart.map(item => {
-        total += Number(item.price) * item.quantity
-        order.products.push({ productId: item.id, quantity: item.quantity, price: item.price, observation: item.observation != null ? item.observation : null })
-        order = { ...order, total: total }
-      })
-    }
+
     try {
-      const response = await api.post('/order', order);
+      await api.post('/order', order);
       addToast({ type: "success", title: "Pedido", message: "Realizado com Sucesso" });
     }
     catch (err) {

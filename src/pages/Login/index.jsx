@@ -8,6 +8,7 @@ import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
 import errorHandle from '../../helpers/errorHandle'
 import styles from "./styles.module.css"
+import api from '../../utils/api';
 
 
 
@@ -25,17 +26,18 @@ export const Login = () => {
     try {
       if (user.length === 0) return { error: 'Insira um usuário' };
       else if (password.length === 0) return { error: 'Insira uma senha.' };
-      else if (password !== "teste") throw new Error()
-      // await api.post('/login', { user, password });
+      // else if (password !== "teste") throw new Error()
+      const data = await api.post('/login', { username: user, password });
       addToast({ type: "success", title: "User", message: "Realizado com sucesso" })
-      if (user == "Cozinha") {
-        signIn({ id: "1", name: user, userType: "kitchen" }, '1234567890')
-        navigate("/kitchen");
-      }
-      else {
-        signIn({ id: "1", name: user, userType: "client" }, '1234567890')
-        navigate("/home");
-      }
+      signIn(data.data.user)
+      // if (user == "Cozinha") {
+      //   signIn({ id: "1", name: user, userType: "kitchen", token: '1234567890' }})
+      //   navigate("/kitchen");
+      // }
+      // else {
+      //   signIn({ id: "1", name: user, userType: "client",  token: '1234567890' })
+      //   navigate("/home");
+      // }
     } catch (err) {
       addToast({ type: "error", title: "Erro ao logar", message: "Cheque as credenciais" })
     }

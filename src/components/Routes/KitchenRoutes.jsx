@@ -6,11 +6,13 @@ import { useAuth } from '../../context/authContext'
 export const KitchenRoutes = () => {
   const { isLogged, data } = useAuth()
 
-
+  if (isLogged() && data.user.userType == "client") {
+    return (
+      <Outlet />
+    )
+  }
   return (
-
-
-    isLogged() ? data.user.userType == "kitchen" ? <Outlet /> : <Navigate to="/login" /> : <Navigate to="/login" />
+    <Navigate to="/login" />
 
 
   )

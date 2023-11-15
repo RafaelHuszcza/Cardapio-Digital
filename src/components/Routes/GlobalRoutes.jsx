@@ -6,9 +6,13 @@ import { useAuth } from '../../context/authContext'
 export const GlobalRoutes = () => {
   const { isLogged, data } = useAuth()
 
+  if (isLogged() && data.user.userType == "client") {
+    return (
+      <Outlet />
+    )
+  }
   return (
-
-    isLogged() ? data.user.userType == "client" ? <Outlet /> : <Navigate to="/login" /> : <Navigate to="/login" />
+    <Navigate to="/login" />
 
 
   )

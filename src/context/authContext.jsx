@@ -13,13 +13,13 @@ export const AuthProvider = ({ children }) => {
     };
   });
 
-  const signIn = async (user, token) => {
-    setData({ user, token });
+  const signIn = async (user) => {
+    setData({ user: { id: user.id, name: user.name, userType: user.userType }, token: user.token });
     localStorage.setItem(
       "@CDigital:user",
       JSON.stringify(user)
     );
-    localStorage.setItem("@CDigital:token", token);
+    localStorage.setItem("@CDigital:token", user.token);
   };
 
   const signOut = () => {
@@ -31,10 +31,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const isLogged = () => {
-    if (data.token === "") {
-      return false;
-    }
-    return true
+    return data.token !== ""
   };
 
   const generateToken = (token = data.token) => {

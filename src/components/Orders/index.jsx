@@ -10,6 +10,7 @@ import { useToast } from '../../context/toastContext';
 import handleError from '../../helpers/errorHandle';
 import api from '../../utils/api';
 import styles from './styles.module.css';
+import { useAuth } from "../../context/authContext";
 
 export function Orders() {
 
@@ -18,6 +19,7 @@ export function Orders() {
   const { products, setProducts } = useProducts();
   const { orders, setOrders } = useOrders();
   const { addToast } = useToast();
+  const { data, isLogged } = useAuth();
   //TODO
   useEffect(() => {
     async function loadProducts() {
@@ -36,9 +38,10 @@ export function Orders() {
   useEffect(() => {
     async function loadOrders() {
       try {
-        const response = await api.get("/orders");
-        setOrders(response.data);
-
+        const response = await api.get("/orders?clientId=" + data.user.id + "&token=" + data.token);
+        console.log(response.data)
+        setOrders(response.data.orders);
+        // TODO status column 
       } catch (err) {
         const message = handleError(err);
         addToast({ type: "error", title: 'Carregar dados', message })
@@ -47,27 +50,25 @@ export function Orders() {
 
     if (orders.length === 0) loadOrders();
 
-
-
   }, [orders]);
 
 
-  useEffect(() => {
-    orders.map(order => {
-      products.map(item => {
-        if (item.id === order.productId && productsToShow.length < orders.length) {
-          setProductsToShow(arr => [...arr, { ...order, name: item.name, url: item.url }])
-        }
-      }
-      )
-    })
+  // useEffect(() => {
+  //   orders.map(order => {
+  //     products.map(item => {
+  //       if (item.id === order.productId && productsToShow.length < orders.length) {
+  //         setProductsToShow(arr => [...arr, { ...order, name: item.name, url: item.url }])
+  //       }
+  //     }
+  //     )
+  //   })
 
-  }, [orders]);
+  // }, [orders]);
 
   return (
 
     <div className={styles.products}>
-      {productsToShow.map(product => {
+      {products.map(product => {
         return (
           <OrderCard key={product.id} product={product} />
 
