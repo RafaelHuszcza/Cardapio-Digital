@@ -14,13 +14,14 @@ export const AuthProvider = ({ children }) => {
   });
 
   const signIn = async (user) => {
-    setData({ user: { id: user.id, name: user.name, userType: user.userType }, token: user.token });
+    const userSystem = { id: user.id, name: user.name, userType: user.type }
+    setData({ user: userSystem, token: user.token });
 
     localStorage.setItem("@CDigital:token", user.token);
     delete user.token;
     localStorage.setItem(
       "@CDigital:user",
-      JSON.stringify(user)
+      JSON.stringify(userSystem)
     );
   };
 
