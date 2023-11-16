@@ -84,7 +84,9 @@ export const Login = () => {
             {error && <div className={styles.loginUserError}>{error}</div>}
 
             <button className={styles.loginSubmitButton}>Entrar</button>
-
+            <div className={styles.loginForgotPassword}>
+              <Link to="/register">Crie a sua conta</Link>
+            </div>
             <div className={styles.loginForgotPassword}>
               <Link to="/esqueceu-senha">Esqueceu sua senha?</Link>
             </div>

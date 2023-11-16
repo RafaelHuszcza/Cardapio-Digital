@@ -9,8 +9,7 @@ import { KitchenRoutes } from "./components/Routes/KitchenRoutes";
 import { LoginRoutes } from "./components/Routes/LoginRoutes";
 import { Main } from "./pages/Main";
 import { Login } from "./pages/Login";
-
-
+import Register from "./pages/Register";
 
 export function AppRoutes() {
   return (
@@ -29,6 +28,8 @@ export function AppRoutes() {
         </Route>
 
         {/* Auth Rotes */}
+        <Route path="/register" element={<Register />} exact />
+        
         <Route element={<LoginRoutes />}>
           <Route path="/login" element={<Login />} exact />
         </Route>
