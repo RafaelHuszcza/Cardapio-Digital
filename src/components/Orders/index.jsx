@@ -65,26 +65,11 @@ export function Orders() {
     }
     if (orders.length === 0) loadOrders();
   }, [orders]);
-  console.log(orders)
-
-  // useEffect(() => {
-  //   orders.map(order => {
-  //     console.log(order)
-  //     products.map(item => {
-  //       if (item.id === order.product_id && productsToShow.length < orders.length) {
-  //         setProductsToShow(arr => [...arr, { ...order, name: item.name, url: item.url }])
-  //       }
-  //     }
-  //     )
-  //   })
-
-  // }, [orders]);
-
   return (
 
     <div className={styles.products}>
-      {productsToShow.map(product =>
-        <OrderCard key={product.id} product={product} />
+      {orders.map(order =>
+        <OrderCard key={order.order_id} id={order.order_id} status={order.status} products={order.products} />
       )}
 
     </div>
