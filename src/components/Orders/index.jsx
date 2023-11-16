@@ -53,22 +53,22 @@ export function Orders() {
   }, [orders]);
 
 
-  // useEffect(() => {
-  //   orders.map(order => {
-  //     products.map(item => {
-  //       if (item.id === order.productId && productsToShow.length < orders.length) {
-  //         setProductsToShow(arr => [...arr, { ...order, name: item.name, url: item.url }])
-  //       }
-  //     }
-  //     )
-  //   })
+  useEffect(() => {
+    orders.map(order => {
+      products.map(item => {
+        if (item.id === order.productId && productsToShow.length < orders.length) {
+          setProductsToShow(arr => [...arr, { ...order, name: item.name, url: item.url }])
+        }
+      }
+      )
+    })
 
-  // }, [orders]);
+  }, [orders]);
 
   return (
 
     <div className={styles.products}>
-      {products.map(product => {
+      {productsToShow.map(product => {
         return (
           <OrderCard key={product.id} product={product} />
 
