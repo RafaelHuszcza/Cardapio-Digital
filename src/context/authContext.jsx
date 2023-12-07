@@ -3,54 +3,41 @@ import { createContext, useContext, useState } from "react";
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const token = localStorage.getItem("@taNaMesa:token");
-  const user = JSON.parse(localStorage.getItem("@taNaMesa:user"));
-  let dataDefault = {
-    user: { id: "", name: "", userType: ""},
-    token: "",
-  }
-  if (token && user) {
-    dataDefault = {
-      user: {
-        id: user.id,
-        name: user.name,
-        userType: user.type,
-      }, 
-      token };
-  }
-  const [data, setData] = useState(dataDefault);
+  const [data, setData] = useState(() => {
+    const token = localStorage.getItem("@CDigital:token");
+    const user = localStorage.getItem("@CDigital:user");
+    if (token && user) return { user: JSON.parse(user), token };
+    return {
+      user: { id: "", name: "", userType: "" },
+      token: "",
+    };
+  });
 
   const signIn = async (user) => {
-    setData(
-      {
-        user: {
-          id: user.id,
-          name: user.name,
-          userType: user.type,
-        }, 
-        token: user.token
-      });
-    localStorage.setItem("@taNaMesa:token", user.token);
+    const userSystem = { id: user.id, name: user.name, userType: user.type }
+    setData({ user: userSystem, token: user.token });
+
+    localStorage.setItem("@CDigital:token", user.token);
     delete user.token;
     localStorage.setItem(
-      "@taNaMesa:user",
-      JSON.stringify({...user, userType: user.type})
+      "@CDigital:user",
+      JSON.stringify(userSystem)
     );
   };
 
   const signOut = () => {
     localStorage.clear();
     setData({
-      user: { id: "", name: "", userType: ""},
+      user: { id: "", name: "", userType: "" },
       token: "",
     });
   };
 
-  function isLogged () { 
-    return data.token !== "" // TODO: check if token is valid
-  }
+  const isLogged = () => {
+    return data.token !== ""
+  };
 
-  const generateToken = (token=data.token) => {
+  const generateToken = (token = data.token) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
