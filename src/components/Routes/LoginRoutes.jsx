@@ -2,10 +2,13 @@ import { Outlet, Navigate } from 'react-router-dom';
 import { useAuth } from '../../context/authContext'
 
 export const LoginRoutes = () => {
-  const { isLogged, data } = useAuth()
+  const { isLogged } = useAuth()
 
-  return(
-  isLogged() ? data.user.usertype == "client"? <Navigate to="/home"/> : <Navigate to="/kitchen"/> : <Outlet/>
+  if (isLogged()) {
+    return <Navigate to="/home" />
+  }
+  return (
+    < Outlet />
   )
 }
 

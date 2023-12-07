@@ -4,40 +4,40 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [data, setData] = useState(() => {
-    const token = localStorage.getItem("@taNaMesa:token");
-    const user = localStorage.getItem("@taNaMesa:user");
+    const token = localStorage.getItem("@CDigital:token");
+    const user = localStorage.getItem("@CDigital:user");
     if (token && user) return { user: JSON.parse(user), token };
     return {
-      user: { id: "", name: ""},
+      user: { id: "", name: "", userType: "" },
       token: "",
     };
   });
 
-  const signIn = async (user, token) => {
-    setData({user, token});
+  const signIn = async (user) => {
+    const userSystem = { id: user.id, name: user.name, userType: user.type }
+    setData({ user: userSystem, token: user.token });
+
+    localStorage.setItem("@CDigital:token", user.token);
+    delete user.token;
     localStorage.setItem(
-      "@taNaMesa:user",
-      JSON.stringify(user)
+      "@CDigital:user",
+      JSON.stringify(userSystem)
     );
-    localStorage.setItem("@taNaMesa:token", token);
   };
 
   const signOut = () => {
     localStorage.clear();
     setData({
-      user: { id: "", name: "", userType: ""},
+      user: { id: "", name: "", userType: "" },
       token: "",
     });
   };
 
   const isLogged = () => {
-    if (data.token === "") {
-      return false;
-    }
-    return true
+    return data.token !== ""
   };
 
-  const generateToken = (token=data.token) => {
+  const generateToken = (token = data.token) => {
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
