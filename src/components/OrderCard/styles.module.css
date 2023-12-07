@@ -89,3 +89,13 @@ box-sizing: border-box;
   color: var(--text-color-primary);
   background: var(--primary-color);
 }
+.order{
+  display: flex;
+  flex-direction: column;
+  color: var(--text-color-primary);
+  text-align: center;
+  border-radius: 5px;
+  padding:1rem;
+  border: 1px solid var(--primary-color);
+  height: auto;
+}
