@@ -4,7 +4,6 @@ import { useAuth } from '../../context/authContext'
 export const LoginRoutes = () => {
   const { isLogged } = useAuth()
 
-
   if (isLogged()) {
     return <Navigate to="/home" />
   }
