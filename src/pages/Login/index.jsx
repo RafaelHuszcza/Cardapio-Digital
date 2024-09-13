@@ -2,25 +2,20 @@ import { useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../context/authContext';
 import { useToast } from '../../context/toastContext';
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons"
+import { EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
 
 import { Header } from '../../components/Header';
 import { Footer } from '../../components/Footer';
-import errorHandle from '../../helpers/errorHandle'
-import styles from "./styles.module.css"
+import styles from './styles.module.css';
 import api from '../../utils/api';
-
-
-
-
 
 export const Login = () => {
   const [error, setError] = useState(null);
-  const { signIn } = useAuth()
-  const { addToast } = useToast()
+  const { signIn } = useAuth();
+  const { addToast } = useToast();
   const navigate = useNavigate();
-  const formRef = useRef()
-  const [inputType, setInputType] = useState("password")
+  const formRef = useRef();
+  const [inputType, setInputType] = useState('password');
 
   const login = async ({ user, password }) => {
     try {
@@ -28,8 +23,12 @@ export const Login = () => {
       else if (password.length === 0) return { error: 'Insira uma senha.' };
       // else if (password !== "teste") throw new Error()
       const data = await api.post('/login', { username: user, password });
-      addToast({ type: "success", title: "User", message: "Realizado com sucesso" })
-      signIn(data.data.user)
+      addToast({
+        type: 'success',
+        title: 'User',
+        message: 'Realizado com sucesso',
+      });
+      signIn(data.data.user);
       // if (user == "Cozinha") {
       //   signIn({ id: "1", name: user, userType: "kitchen", token: '1234567890' }})
       //   navigate("/kitchen");
@@ -39,17 +38,23 @@ export const Login = () => {
       //   navigate("/home");
       // }
     } catch (err) {
-      addToast({ type: "error", title: "Erro ao logar", message: "Cheque as credenciais" })
+      addToast({
+        type: 'error',
+        title: 'Erro ao logar',
+        message: 'Cheque as credenciais',
+      });
     }
-  }
+  };
 
   async function onSubmit(event) {
     event.preventDefault();
-    const inputValues = [...formRef.current.elements]
-      .reduce((total, { name, value }) => {
-        if (name) return { ...total, [name]: value }
-        return total
-      }, {})
+    const inputValues = [...formRef.current.elements].reduce(
+      (total, { name, value }) => {
+        if (name) return { ...total, [name]: value };
+        return total;
+      },
+      {}
+    );
     login(inputValues);
   }
   return (
@@ -57,27 +62,45 @@ export const Login = () => {
       <Header />
       <div className={styles.login}>
         <div className={styles.loginUser}>
-          <form onSubmit={onSubmit} ref={formRef}>
+          <form
+            onSubmit={onSubmit}
+            ref={formRef}
+          >
             <div className={styles.loginForm}>
-              <label htmlFor="user">Usuário</label>
+              <label htmlFor='user'>Usuário</label>
               <input
-                placeholder="RHuszcza"
-                id="user"
-                type="text"
-                name="user"
+                placeholder='Seu nome de usuário'
+                id='user'
+                type='text'
+                name='user'
               />
             </div>
-            <div className={styles.loginForm} style={{ position: 'relative' }}>
-              <label htmlFor="password">Senha:</label>
+            <div
+              className={styles.loginForm}
+              style={{ position: 'relative' }}
+            >
+              <label htmlFor='password'>Senha:</label>
               <input
-                placeholder="********"
-                id="password"
+                placeholder='********'
+                id='password'
                 type={inputType}
-                name="password"
+                name='password'
               />
               <div className={styles.loginFormPasswordEye}>
-                {inputType === 'password' && <EyeOutlined onClick={() => { setInputType('text') }} />}
-                {inputType === 'text' && <EyeInvisibleOutlined onClick={() => { setInputType('password') }} />}
+                {inputType === 'password' && (
+                  <EyeOutlined
+                    onClick={() => {
+                      setInputType('text');
+                    }}
+                  />
+                )}
+                {inputType === 'text' && (
+                  <EyeInvisibleOutlined
+                    onClick={() => {
+                      setInputType('password');
+                    }}
+                  />
+                )}
               </div>
             </div>
 
@@ -85,17 +108,16 @@ export const Login = () => {
 
             <button className={styles.loginSubmitButton}>Entrar</button>
             <div className={styles.loginForgotPassword}>
-              <Link to="/register">Crie a sua conta</Link>
+              <Link to='/register'>Crie a sua conta</Link>
             </div>
             <div className={styles.loginForgotPassword}>
-              <Link to="/esqueceu-senha">Esqueceu sua senha?</Link>
+              <Link to='/esqueceu-senha'>Esqueceu sua senha?</Link>
             </div>
           </form>
         </div>
       </div>
 
       <Footer />
-    </div >
+    </div>
   );
 };
-

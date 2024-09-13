@@ -1,66 +1,88 @@
-import { Navigate } from "react-router-dom";
+import { useState } from 'react';
+import { useAuth } from '../../context/authContext';
+import styles from './styles.module.css';
 
 export default function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassowrd] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [error, setError] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
 
   async function handleSubmit(event) {
     event.preventDefault();
     if (password !== passwordConfirmation) {
-      return setError("As senhas não são iguais");
+      return setError('As senhas não são iguais');
     }
     try {
-      setError("");
+      setError('');
       setLoading(true);
-      await register(email, password, name);
+      const response = await register(email, password, name);
+      if (response.status === 201) {
+        window.location.href = '/login';
+      }
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || 'Erro ao cadastrar');
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h1>Cadastrar</h1>
-        {error && <p>{error}</p>}
+    <div className={styles.container}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit}
+      >
+        <h1 className={styles.title}>Cadastrar</h1>
+        {error && <p className={styles.error}>{error}</p>}
         <input
-          type="text"
-          placeholder="Nome"
+          className={styles.input}
+          type='text'
+          placeholder='Nome'
           value={name}
           onChange={(event) => setName(event.target.value)}
           required
         />
         <input
-          type="email"
-          placeholder="Email"
+          className={styles.input}
+          type='email'
+          placeholder='Email'
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
         />
         <input
-          type="password"
-          placeholder="Senha"
+          className={styles.input}
+          type='password'
+          placeholder='Senha'
           value={password}
-          onChange={(event) => setPassowrd(event.target.value)}
+          onChange={(event) => setPassword(event.target.value)}
           required
         />
         <input
-          type="password"
-          placeholder="Confirme a senha"
+          className={styles.input}
+          type='password'
+          placeholder='Confirme a senha'
           value={passwordConfirmation}
           onChange={(event) => setPasswordConfirmation(event.target.value)}
           required
         />
-        <button type="submit" disabled={loading}>
+        <button
+          className={styles.button}
+          type='submit'
+          disabled={loading}
+        >
           Cadastrar
         </button>
-        <a href="/login">Já tenho uma conta</a>
+        <a
+          className={styles.link}
+          href='/login'
+        >
+          Já tenho uma conta
+        </a>
       </form>
     </div>
   );
